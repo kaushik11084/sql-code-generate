@@ -1,6 +1,6 @@
 dash
 dash_bootstrap_components
-urllib3==2.1.0
+urllib3==2.4.0
 ibm-cloud-sdk-core
 dash_daq
 jproperties
