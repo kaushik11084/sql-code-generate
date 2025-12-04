@@ -1,5 +1,5 @@
 dash>=2.14.0
-dash_bootstrap_componentis>=1.6.0
+dash_bootstrap_components>=1.6.0
 dash_daq>=-0.5.0
 urllib3==2.4.0
 ibm-cloud-sdk-core>=3.21.0
