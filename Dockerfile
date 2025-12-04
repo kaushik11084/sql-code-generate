@@ -20,18 +20,28 @@ ENV SERVICE_PORT ${SERVICE_PORT}
 # Setting up the working directory
 WORKDIR /app
 
-# Installing the required python library to run models
+
+# ------------------------------------------------------------
+# Install Python 3.11 + pip safely (avoid pip==22.3 resolver bug)
+# ------------------------------------------------------------
+RUN microdnf install -y python3.11 python3.11-pip && microdnf clean all
+
+# Upgrade pip to a modern resolver
+RUN python3.11 -m pip install --upgrade pip setuptools wheel
+
+# ------------------------------------------------------------
+# FIX CRITICAL ISSUE: Remove urllib3==1.26.18 if present
+# because ibm-cloud-sdk-core>=3.21 requires urllib3>=2.1.0
+# ------------------------------------------------------------
 COPY requirements.txt /app/requirements.txt
+RUN sed -i '/urllib3==/d' requirements.txt
 
-RUN microdnf install python3.11 -y
-RUN python3 -m ensurepip --upgrade
-RUN python3 -m pip install pip==22.3
+# Install Python dependencies
+RUN python3.11 -m pip install --no-cache-dir -r requirements.txt
 
-RUN python3 --version > /app/python-version.txt
-RUN pip3 -V > /app/pip-version.txt
-
-RUN pip3 install -r requirements.txt
-
+# ------------------------------------------------------------
+# Copy application code
+# ------------------------------------------------------------
 COPY assets /app/assets
 COPY payload /app/payload
 COPY analytics.py /app/analytics.py
