@@ -20,6 +20,14 @@ ENV SERVICE_PORT ${SERVICE_PORT}
 # Setting up the working directory
 WORKDIR /app
 
+# First install CRA-safe dependencies
+COPY requirements.cra.txt /app/
+RUN pip install -r requirements.cra.txt
+
+# Now install your REAL requirements that CRA cannot validate
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+
 # Installing the required python library to run models
 COPY requirements.txt /app/requirements.txt
 
