@@ -8,6 +8,7 @@ pandas==2.0.3
 numpy==1.23.5
 python-dotenv==1.0.0
 requests==2.31.0
+sql-formatter==0.6.2
 segment-analytics-python==2.2.3
 bcrypt==4.1.2
 furl==2.1.3
