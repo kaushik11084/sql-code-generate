@@ -1,35 +1,37 @@
 # ***************************************************************** #
 # (C) Copyright IBM Corporation 2023.                               #
+#                                                                   #
+# The source code for this program is not published or otherwise    #
+# divested of its trade secrets, irrespective of what has been      #
+# deposited with the U.S. Copyright Office.                         #
 # ***************************************************************** #
 
+# Test Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-test
+# Prod Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-prod
+
 ARG RUNTIME_BASE=registry.access.redhat.com/ubi8/ubi-minimal:8.8-1014
+
 FROM ${RUNTIME_BASE} as base
 
+# Args for artifactory credentials
 ARG SERVICE_PORT=8050
-ENV SERVICE_PORT=${SERVICE_PORT}
+ENV SERVICE_PORT ${SERVICE_PORT}
 
+# Setting up the working directory
 WORKDIR /app
 
-# ---------------------------------------------------
-# Install Python 3.10 properly on UBI8 minimal
-# ---------------------------------------------------
-RUN microdnf install -y dnf && \
-    dnf install -y python3.10 python3.10-pip && \
-    ln -sf /usr/bin/python3.10 /usr/bin/python3 && \
-    ln -sf /usr/bin/pip3.10 /usr/bin/pip && \
-    python3 -m ensurepip --upgrade && \
-    pip install --upgrade pip setuptools wheel && \
-    dnf clean all && rm -rf /var/cache/dnf
-
-# ---------------------------------------------------
-# Install application dependencies
-# ---------------------------------------------------
+# Installing the required python library to run models
 COPY requirements.txt /app/requirements.txt
-RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# ---------------------------------------------------
-# Copy application source
-# ---------------------------------------------------
+#RUN microdnf install python3.11 -y
+##RUN python3 -m ensurepip --upgrade
+RUN python3 -m pip install pip==22.3
+
+RUN python3 --version > /app/python-version.txt
+RUN pip3 -V > /app/pip-version.txt
+
+RUN pip3 install -r requirements.txt
+
 COPY assets /app/assets
 COPY payload /app/payload
 COPY analytics.py /app/analytics.py
@@ -39,4 +41,4 @@ COPY template.py /app/template.py
 
 EXPOSE ${SERVICE_PORT}
 
-ENTRYPOINT ["python3", "template.py"]
+ENTRYPOINT ["python3","template.py"]
