@@ -23,11 +23,11 @@ WORKDIR /app
 # Installing the required python library to run models
 COPY requirements.txt /app/requirements.txt
 
-#RUN microdnf install python3.11 -y
-##RUN python3 -m ensurepip --upgrade
-#RUN python3 -m pip install pip==22.3
+RUN microdnf install python3.11 -y
+RUN python3 -m ensurepip --upgrade
+RUN python3 -m pip install pip==22.3
 
-#RUN python3 --version > /app/python-version.txt
+RUN python3 --version > /app/python-version.txt
 
 RUN pip3 install -r requirements.txt
 
