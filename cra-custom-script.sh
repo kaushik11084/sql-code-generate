@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 ###############################################
 # Enable CRA pipeline debug output
