@@ -13,7 +13,7 @@ analytics.on_error = on_error
 
 def sendTrackEvent(user, prop_dict: dict, event_name):
     properts = {
-        "text": "SQL code generation",
+        "text": "Brief builder",
         "productTitle": "Digital Self-Serve Co-Create Experience",
         "objectType": "dsce-wx-app",
         "data": prop_dict

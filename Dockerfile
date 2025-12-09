@@ -6,8 +6,8 @@
 # deposited with the U.S. Copyright Office.                         #
 # ***************************************************************** #
 
-# Test Build Version - icr.io/dsce-project/watsonx-nl2sql:v0.1-test
-# Prod Build Version - icr.io/dsce-project/watsonx-nl2sql:v0.1-prod
+# Test Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-test
+# Prod Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-prod
 
 ARG RUNTIME_BASE=registry.access.redhat.com/ubi8/ubi-minimal:8.8-1014
 
@@ -28,7 +28,6 @@ RUN python3 -m ensurepip --upgrade
 RUN python3 -m pip install pip==22.3
 
 RUN python3 --version > /app/python-version.txt
-RUN pip3 -V > /app/pip-version.txt
 
 RUN pip3 install -r requirements.txt
 
@@ -36,6 +35,7 @@ COPY assets /app/assets
 COPY payload /app/payload
 COPY analytics.py /app/analytics.py
 COPY app-config.properties /app/app-config.properties
+COPY sample-brief-gen.txt /app/sample-brief-gen.txt
 COPY template.py /app/template.py
 
 EXPOSE ${SERVICE_PORT}

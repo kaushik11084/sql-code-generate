@@ -90,10 +90,6 @@ body {
   }
 }
 
-.nav.nav-tabs {
-  border-bottom: none;
-}
-
 /* For payload modal */
 .modal-content {
   border-radius: 0;
@@ -131,16 +127,14 @@ body {
 }
 
 /* hljs is for markdown */
-#payload-modal {
-  .hljs {
-    background-color: #343a3f;
-    color: #78a9ff;
-    font-family: "IBM Plex Mono", sans-serif !important;
-  }
-  .hljs-string {
-    color: #9ef0f0;
-    font-family: "IBM Plex Mono", sans-serif !important;
-  }
+.hljs {
+  background-color: #343a3f;
+  color: #78a9ff;
+  font-family: "IBM Plex Mono", sans-serif !important;
+}
+.hljs-string {
+  color: #9ef0f0;
+  font-family: "IBM Plex Mono", sans-serif !important;
 }
 
 .tab-content {
@@ -156,58 +150,6 @@ body {
   padding-top: 2rem;
 }
 
-.input-active {
-  text-align: left !important;
-}
-
-.remove-btn {
-  border-radius: 0;
-  border: none;
-  margin-left: 2.5rem;
-  margin-top: 2rem;
-}
-
 .modal-content {
   min-height: 308px !important;
-}
-
-#example-modal {
-  .modal-content {
-    height: 840px !important;
-    min-height: 840px !important;
-    max-height: 840px !important;
-  }
-}
-
-.btn-info {
-  color: "#525252";
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  width: 70%;
-}
-
-.btn-info p {
-  margin-bottom: 0.2rem;
-}
-
-.btn-info-save {
-  color: "#525252";
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  width: 40%;
-}
-
-.btn-info-save p {
-  margin-bottom: 0.2rem;
-}
-
-.search-btn {
-  background-color: #f4f4f4;
-  border-radius: 0;
-  border-bottom-color: #8d8d8d;
-  border-top: none;
-  border-left: none;
-  border-right: none;
 }
