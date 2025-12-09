@@ -1,6 +1,7 @@
 dash
 dash_bootstrap_components
 dash_daq
+ibm-cloud-sdk-core
 jproperties
 markdownify
 pandas
@@ -8,4 +9,6 @@ numpy
 python-dotenv
 requests
 sql-formatter
+segment-analytics-python
+bcrypt
 furl

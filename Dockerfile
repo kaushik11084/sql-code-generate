@@ -9,7 +9,7 @@
 # Test Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-test
 # Prod Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-prod
 
-ARG RUNTIME_BASE=registry.access.redhat.com/ubi8/ubi-minimal:8.8-1014
+ARG RUNTIME_BASE=registry.access.redhat.com/ubi9-minimal:latest
 
 FROM ${RUNTIME_BASE} as base
 
@@ -24,10 +24,10 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 
 RUN microdnf install python3.11 -y
-RUN python3 -m ensurepip --upgrade
-RUN python3 -m pip install pip==22.3
+RUN microdnf install python3.11-pip -y
 
 RUN python3 --version > /app/python-version.txt
+RUN python3 -m pip install --upgrade pip
 
 RUN pip3 install -r requirements.txt
 
