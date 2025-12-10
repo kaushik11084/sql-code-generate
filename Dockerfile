@@ -9,7 +9,7 @@
 # Test Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-test
 # Prod Build Version - icr.io/dsce-project/watsonx-generate-mkt-brief:v0.1-prod
 
-ARG RUNTIME_BASE=registry.access.redhat.com/ubi9-minimal:latest
+ARG RUNTIME_BASE=registry.access.redhat.com/ubi9-minimal:9.7
 
 FROM ${RUNTIME_BASE} as base
 
@@ -22,22 +22,25 @@ WORKDIR /app
 
 COPY cra-custom-script.sh /app/cra-custom-script.sh
 
-# Installing the required python library to run models
-COPY requirements.txt /app/requirements.txt
-
+# Install Python 3.11 and tools (DL3041, DL3059 fixes)
 RUN microdnf update -y && \
-    microdnf install -y python3.11 python3.11-pip && \
+    microdnf install -y \
+        python3.11 \
+        python3.11-pip \
+        findutils && \
+    ln -s /usr/bin/python3.11 /usr/bin/python3 && \
+    ln -s /usr/bin/pip3.11 /usr/bin/pip3 && \
+    python3 -m pip install --no-cache-dir --upgrade pip && \
     microdnf clean all
 
-RUN ln -s /usr/bin/python3.11 /usr/bin/python3 && \
-    ln -s /usr/bin/pip3.11 /usr/bin/pip3
-
+# Write versions
 RUN python3 --version > /app/python-version.txt
-RUN python3 -m ensurepip --upgrade
-RUN python3 -m pip install --upgrade pip
+RUN pip --version > /app/pip-version.txt
 
-RUN pip3 install -r requirements.txt
+# Install Python dependencies (DL3042 fix)
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the app
 COPY assets /app/assets
 COPY payload /app/payload
 COPY analytics.py /app/analytics.py
