@@ -36,8 +36,8 @@ RUN microdnf update -y && \
     microdnf clean all
 
 # Write versions
-RUN python3 --version > /app/python-version.txt
-RUN pip --version > /app/pip-version.txt
+RUN python3 --version > /app/python-version.txt && \
+    pip --version > /app/pip-version.txt
 
 # Install Python dependencies (DL3042 fix)
 RUN pip install --no-cache-dir -r /app/requirements.txt
