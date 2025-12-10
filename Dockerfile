@@ -20,6 +20,8 @@ ENV SERVICE_PORT ${SERVICE_PORT}
 # Setting up the working directory
 WORKDIR /app
 
+# Copy requirements first (pip caching optimization)
+COPY requirements.txt /app/requirements.txt
 COPY cra-custom-script.sh /app/cra-custom-script.sh
 
 # Install Python 3.11 and tools (DL3041, DL3059 fixes)
@@ -38,7 +40,7 @@ RUN python3 --version > /app/python-version.txt
 RUN pip --version > /app/pip-version.txt
 
 # Install Python dependencies (DL3042 fix)
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the app
 COPY assets /app/assets
