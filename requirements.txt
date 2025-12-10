@@ -9,8 +9,6 @@ numpy
 python-dotenv
 requests
 sql-formatter
-segment-analytics-python==2.2.3
-backoff==1.11.1
 bcrypt==3.2.2
 PyJWT==2.4.0
 urllib3==1.26.20
