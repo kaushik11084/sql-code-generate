@@ -30,8 +30,6 @@ RUN microdnf update -y && \
 RUN ln -s /usr/bin/python3.11 /usr/bin/python3 && \
     ln -s /usr/bin/pip3.11 /usr/bin/pip3
 
-RUN alternatives --set python /usr/bin/python3.11
-
 RUN python3 --version > /app/python-version.txt
 RUN python3 -m pip install --upgrade pip
 
