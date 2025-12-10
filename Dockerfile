@@ -20,13 +20,20 @@ ENV SERVICE_PORT ${SERVICE_PORT}
 # Setting up the working directory
 WORKDIR /app
 
+COPY cra-custom-script.sh /app/cra-custom-script.sh
+
 # Installing the required python library to run models
 COPY requirements.txt /app/requirements.txt
 
-RUN microdnf install python3.11 -y
-RUN microdnf install python3.11-pip -y
+RUN microdnf update -y && \
+    microdnf install -y python3.11 python3.11-pip && \
+    microdnf clean all
+
+RUN ln -s /usr/bin/python3.11 /usr/bin/python3 && \
+    ln -s /usr/bin/pip3.11 /usr/bin/pip3
 
 RUN python3 --version > /app/python-version.txt
+RUN python3 -m ensurepip --upgrade
 RUN python3 -m pip install --upgrade pip
 
 RUN pip3 install -r requirements.txt

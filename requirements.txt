@@ -9,6 +9,7 @@ numpy
 python-dotenv
 requests
 sql-formatter
-segment-analytics-python
-bcrypt
+bcrypt==3.2.2
+PyJWT==2.4.0
+urllib3==1.26.20
 furl
