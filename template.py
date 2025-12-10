@@ -12,7 +12,6 @@ from jproperties import Properties
 from markdownify import markdownify as md
 from datetime import datetime
 import bcrypt
-from analytics import sendTrackEvent
 from furl import furl
 
 # instantiate config
@@ -419,7 +418,7 @@ def generate_output_llm(n, verification_completed, text, href: str, email_store,
                 return html.P(configs_dict["helper_text"], style={"color": "#525252", "fontSize": "1rem", "fontStyle": "italic"}), True
 
         emailDomain,user_id = get_user_email_and_id(email_store)
-        sendTrackEvent(user_id, { "milestoneName": "Generate button clicked", "objectType": "button", "text": configs_dict['generate_btn_text'], "isCustomText": isCustomText, "emailDomain": emailDomain}, None)
+        #sendTrackEvent(user_id, { "milestoneName": "Generate button clicked", "objectType": "button", "text": configs_dict['generate_btn_text'], "isCustomText": isCustomText, "emailDomain": emailDomain}, None)
         output = []
         actions = configs_dict['generate_btn_actions'].split(',')
         labels = configs_dict['generate_btn_output_labels'].split(',')
